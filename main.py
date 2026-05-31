@@ -1,14 +1,19 @@
+from view_model import SuspeitoViewModel
 from view import SuspeitoView
-from presenter import SuspeitoPresenter
 
 if __name__ == "__main__":
-    v = SuspeitoView()
-    p = SuspeitoPresenter(v)
-   
-    # Loop de execução
+    vm = SuspeitoViewModel()
+    v = SuspeitoView(vm)
+
     while True:
-        print("\n1. Adicionar | 2. Listar | 0. Sair")
-        op = v.obter_input_usuario("Escolha: ")
-        if op == '1': p.adicionar_suspeito()
-        elif op == '2': p.listar_suspeitos()
-        elif op == '0': break
+        v.renderizar() # A View se desenha com o que estiver no VM
+        op = v.menu()
+
+        if op == '1':
+            nome = input("Nome: ")
+            crime = input("Crime: ")
+            vm.adicionar_novo(nome, crime) # Alteramos o VM, não a View!
+        elif op == '2':
+            vm.atualizar_dados()
+        elif op == '0':
+            break

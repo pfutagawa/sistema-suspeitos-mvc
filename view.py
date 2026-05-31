@@ -1,15 +1,17 @@
 class SuspeitoView:
-    # A View agora apenas recebe ordens do que imprimir
-    def exibir_sucesso(self, mensagem):
-        print(f"\n[OK] {mensagem}")
+    def __init__(self, view_model):
+        self.vm = view_model
 
-    def exibir_erro(self, mensagem):
-        print(f"\n[ERRO] {mensagem}")
+    def renderizar(self):
+        """O método que desenha a tela baseada no estado do ViewModel"""
+        print(f"\n--- 🛰️ PAINEL DE CONTROLE (Casos: {self.vm.contador_casos}) ---")
+       
+        for s in self.vm.lista_suspeitos:
+            print(s)
+       
+        if self.vm.mensagem_status:
+            print(f"\n[NOTIFICAÇÃO]: {self.vm.mensagem_status}")
 
-    def mostrar_tabela_suspeitos(self, lista_formatada):
-        print("\n--- RELATÓRIO DE INVESTIGAÇÃO ---")
-        for linha in lista_formatada:
-            print(linha)
-
-    def obter_input_usuario(self, prompt):
-        return input(prompt)
+    def menu(self):
+        print("\n1. Novo Registro | 2. Atualizar Painel | 0. Sair")
+        return input("Comando: ")
